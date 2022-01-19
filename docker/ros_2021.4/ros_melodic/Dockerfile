@@ -3,10 +3,6 @@
 # image base on ros-melodic
 from osrf/ros:melodic-desktop-full
 
-# setting proxy env --option 
-ENV http_proxy=http://child-prc.intel.com:913
-ENV https_proxy=http://child-prc.intel.com:913
-
 # maintainer information
 LABEL maintainer="Pengqiang Li <pengqiang.li@intel.com>"
 
