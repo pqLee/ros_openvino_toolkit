@@ -45,6 +45,7 @@
 #include <vino_people_msgs/Landmark.h>
 #include <vino_people_msgs/LandmarkStamped.h>
 #include <ros/ros.h>
+#include <std_msgs/Int8.h>
 
 #include <memory>
 #include <string>
@@ -179,6 +180,8 @@ protected:
   std::shared_ptr<vino_people_msgs::VehicleAttribsStamped> vehicle_attribs_topic_;
   ros::Publisher pub_landmarks_;
   std::shared_ptr<vino_people_msgs::LandmarkStamped> landmarks_topic_;
+
+  ros::Publisher pub_fps_;
 };
 }  // namespace Outputs
 #endif  // VINO_CORE_LIB__OUTPUTS__ROS_TOPIC_OUTPUT_H

@@ -20,6 +20,7 @@
  */
 
 #include "vino_core_lib/outputs/ros_topic_output.h"
+#include "vino_core_lib/pipeline.h"
 #include <chrono>
 #include <memory>
 #include <string>
@@ -48,6 +49,8 @@ Outputs::RosTopicOutput::RosTopicOutput(std::string pipeline_name) : pipeline_na
       "/openvino_toolkit/" + pipeline_name_ + "/detected_vehicles_attribs", 16);
   pub_landmarks_ = nh_.advertise<vino_people_msgs::LandmarkStamped>(
       "/openvino_toolkit/" + pipeline_name_ + "/detected_landmarks", 16);
+
+  pub_fps_ = nh_.advertise<std_msgs::Int8>("/openvino_toolkit/FPS", 16);
 
   emotions_topic_ = NULL;
   faces_topic_ = NULL;
@@ -412,6 +415,19 @@ void Outputs::RosTopicOutput::handleOutput()
     pub_face_reid_.publish(face_reid_msg);
     face_reid_topic_ = nullptr;
   }
+
+	  std::cout << "Handle get fps function" << std::endl;
+  if(getPipeline()->getParameters()->isGetFps())
+  {
+	  std::cout << "FPS " << std::endl;
+    std_msgs::Int8 fps_msg;
+    int fps_ = getPipeline()->getFPS();
+	  std::cout << "FPS get done : " << fps_ << std::endl;
+    // fps_msg.header = header;
+    fps_msg.data = fps_;
+    pub_fps_.publish(fps_msg);
+  }
+
 }
 
 #if 1   // deprecated
